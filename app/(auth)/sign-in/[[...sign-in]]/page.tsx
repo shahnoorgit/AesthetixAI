@@ -3,10 +3,8 @@ import React from "react";
 
 const SignInPage = () => {
   return (
-    <div className="bg-purple-900">
-      <center>
-        <SignIn />
-      </center>
+    <div>
+      <SignIn />
     </div>
   );
 };
