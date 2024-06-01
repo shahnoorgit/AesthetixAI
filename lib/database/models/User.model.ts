@@ -8,7 +8,7 @@ export interface IUser {
   photo: string;
   clerkId: string;
   planId: string;
-  creditBalance: string;
+  creditBalance: number;
 }
 
 const UserSchema = new Schema({
@@ -19,7 +19,7 @@ const UserSchema = new Schema({
   photo: { type: "string", required: true },
   clerkId: { type: "string", required: true, unique: true },
   planId: { type: "string", required: true, default: 1 },
-  creditBalance: { type: "string", required: true, default: 10 },
+  creditBalance: { type: "number", required: true, default: 10 },
 });
 
 const User = models?.User || model("User", UserSchema);
