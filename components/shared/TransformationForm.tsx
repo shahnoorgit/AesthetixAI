@@ -15,6 +15,7 @@ import {
 import { Input } from "@/components/ui/input";
 import {
   aspectRatioOptions,
+  creditFee,
   defaultValues,
   transformationTypes,
 } from "@/constants";
@@ -26,13 +27,15 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { useState, useTransition } from "react";
+import { useEffect, useState, useTransition } from "react";
 import { AspectRatioKey, debounce, deepMergeObjects } from "@/lib/utils";
 import MediaUploader from "./MediaUploader";
 import TransformedImage from "./TransformedImage";
 import { addImage, updateImage } from "@/lib/actions/Image.actions";
 import { getCldImageUrl } from "next-cloudinary";
 import { useRouter } from "next/navigation";
+import { InsufficientCreditsModal } from "./InsufficientCreditsModal";
+import { updateCredits } from "@/lib/actions/User.actions";
 
 export const formSchema = z.object({
   title: z.string(),
@@ -184,11 +187,20 @@ const TransformationForm = ({
 
     setnewTransformation(null);
 
-    startTransition(async () => {});
+    startTransition(async () => {
+      await updateCredits(userId, creditFee);
+    });
   };
+
+  useEffect(() => {
+    if (image && (type === "restore" || type === "removeBackground")) {
+      setnewTransformation(TransformationType.config);
+    }
+  }, [image, TransformationType.config, type]);
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+        {creditBalance < Math.abs(creditFee) && <InsufficientCreditsModal />}
         <CustomField
           control={form.control}
           name="title"
