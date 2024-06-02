@@ -10,7 +10,6 @@ AI image SaaS platform that excels in image processing capabilities, integrates 
 - **TypeScript**
 - **MongoDB**
 - **Clerk**
-- **Cloudinary**
 - **Stripe**
 - **Shadcn**
 - **TailwindCSS**
