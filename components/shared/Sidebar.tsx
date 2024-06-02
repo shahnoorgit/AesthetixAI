@@ -12,13 +12,19 @@ const Sidebar = () => {
   return (
     <aside className=" sidebar">
       <div className=" size-full flex-col flex gap-4">
-        <Link href={"/"} className="sidebar-logo">
+        <Link
+          href={"/"}
+          className="sidebar-logo flex justify-center gap-0 items-center"
+        >
           <Image
-            src="/assets/images/logo-text.svg"
-            alt="logo"
-            width={180}
-            height={28}
+            src="/assets/images/logo-icon.svg"
+            width={60}
+            height={60}
+            alt="icon"
           />
+          <h1 className="text-center text-purple-600 font-bold text-3xl">
+            AesthetixAI
+          </h1>
         </Link>
         <nav className=" sidebar-nav">
           <SignedIn>

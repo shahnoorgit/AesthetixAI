@@ -19,13 +19,19 @@ const MobileNav = () => {
   const pathname = usePathname();
   return (
     <header className="header">
-      <Link className=" flex items-center gap-2 md:py2" href={"/"}>
+      <Link
+        className=" flex justify-center items-center gap-1 md:py2"
+        href={"/"}
+      >
         <Image
-          src="/assets/images/logo-text.svg"
-          alt="logo"
-          width={180}
-          height={28}
+          src="/assets/images/logo-icon.svg"
+          width={30}
+          height={30}
+          alt="icon"
         />
+        <h1 className="text-center text-purple-600 font-bold text-xl w-[280] h-[28]">
+          AesthetixAI
+        </h1>
       </Link>
       <nav className=" flex gap-2">
         <SignedIn>
