@@ -177,7 +177,6 @@ const TransformationForm = ({
 
     return onChangeField(value);
   };
-
   const onTransformationHandler = () => {
     setisTransforming(true);
 
@@ -220,6 +219,7 @@ const TransformationForm = ({
                   field.onChange(value); // Ensure this line is updating the form state
                   onSelectFileHandler(value, field.onChange);
                 }}
+                value={field.value}
               >
                 <SelectTrigger className="select-field">
                   <SelectValue placeholder="Select Size" />
@@ -250,7 +250,7 @@ const TransformationForm = ({
                   value={field.value}
                   onChange={(e) =>
                     onInputChangeHandler(
-                      "promp",
+                      "prompt",
                       e.target.value,
                       type,
                       field.onChange

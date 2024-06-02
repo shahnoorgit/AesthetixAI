@@ -1,5 +1,6 @@
-import { dataUrl, debounce, getImageSize } from "@/lib/utils";
-import { CldImage } from "next-cloudinary";
+"use client";
+import { dataUrl, debounce, download, getImageSize } from "@/lib/utils";
+import { CldImage, getCldImageUrl } from "next-cloudinary";
 import { PlaceholderValue } from "next/dist/shared/lib/get-img-props";
 import Image from "next/image";
 import React from "react";
@@ -13,14 +14,26 @@ const TransformedImage = ({
   setIsTransforming,
   title,
 }: TransformedImageProps) => {
-  const onDowloadHandler = () => {};
+  const onDowloadHandler = (e: React.MouseEvent<HTMLElement, MouseEvent>) => {
+    e.preventDefault();
+
+    download(
+      getCldImageUrl({
+        width: image?.width,
+        height: image?.height,
+        src: image?.publicId,
+        ...transformationConfig,
+      }),
+      title
+    );
+  };
   return (
     <div className=" flex flex-col gap-2">
       <div className=" flex-between">
         <h3 className=" h3-bold text-dark-600">Transformed</h3>
 
         {hasDownload && (
-          <button className="download-btn" onClick={() => onDowloadHandler()}>
+          <button className="download-btn" onClick={(e) => onDowloadHandler(e)}>
             <Image
               src="/assets/icons/download.svg"
               alt="download"
@@ -47,7 +60,7 @@ const TransformedImage = ({
             onError={() => {
               debounce(() => {
                 setIsTransforming && setIsTransforming(false);
-              }, 8000);
+              }, 8000)();
             }}
             {...transformationConfig}
           />
@@ -59,6 +72,7 @@ const TransformedImage = ({
                 height={50}
                 alt="Transforming"
               />
+              <p className=" text-white/80">Please wait...</p>
             </div>
           )}
         </div>
